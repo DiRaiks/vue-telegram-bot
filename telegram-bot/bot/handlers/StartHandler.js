@@ -1,26 +1,27 @@
 const BotUtils = require('../utils');
 const MessageService = require('../../services/MessageService');
+const UserService = require('../../services/UserService');
 
 const StartHandler = {
-  register(bot, messageOptions) {
+  register(telegramBot, messageOptions) {
     const clientMessage = new RegExp('\/start');
 
-    bot.onText(clientMessage, (message, match) => {
+    telegramBot.onText(clientMessage, (message, match) => {
       //get id user
       const clientId = BotUtils.getClientFromMessage(message);
 
       //вызов UserService с помощью которого сохраняем пользователя в базу при первом обращении к боту
-      bot.saveUser(clientId, (saveErr, result) => {
+      UserService.saveUser(clientId, (saveErr, result) => {
         if (saveErr) {
-          bot.sendMessage(clientId, 'some error! sorry', messageOptions);
+          telegramBot.sendMessage(clientId, 'some error! sorry', messageOptions);
           return;
         }
         //получаем текст сообщения из базы, чтобы потом редактировать из админки не сиправляя код проекта
         MessageService.getByTitle('start', (getErr, message) => {
           if (getErr) {
-            bot.sendMessage(clientId, 'some error!', messageOptions);
+            telegramBot.sendMessage(clientId, 'some error!', messageOptions);
           } else {
-            bot.sendMessage(clientId, message.text, messageOptions);
+            telegramBot.sendMessage(clientId, message.text, messageOptions);
           }
         })
       })
