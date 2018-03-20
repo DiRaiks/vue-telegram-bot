@@ -37,6 +37,9 @@ const botUtils = {
         inline_keyboard: buttons
       })
     }
+  },
+  getLastMessage(message) {
+    return message.message.text;
   }
 };
 

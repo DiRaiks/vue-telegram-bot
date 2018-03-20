@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-const TelegramBot = require('node-telegram-bot-api');
+const TelegramBot = require('node-telegram-bot-api')
+
+const UserService = require('./services/UserService')
+const MessageService = require('./services/MessageService')
 
 const config = require('./config');
 const telegramToken = config.telegram.token;
@@ -23,7 +26,19 @@ bot.onText(new RegExp('\/start'), (message, match) => {
   //id клиента
   const clientId = message.hasOwnProperty('chat') ? message.chat.id : message.from.id;
   //ответ
-  bot.sendMessage(clientId, 'Some message', messageOptions);
+  UserService.saveUser(clientId, (saveErr, result) => {
+    if (saveErr) {
+      bot.sendMessage(clientId, 'some err!', messageOptions)
+      return
+    }
+    MessageService.getByTitle('start', (getErr, message) => {
+      if (getErr) {
+        bot.sendMessage(clientId, 'some err!', messageOptions)
+      } else {
+        bot.sendMessage(clientId, message.text, messageOptions)
+      }
+    })
+  })
 });
 
 // bot.on('callback_query', (message) => {

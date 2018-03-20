@@ -1,4 +1,4 @@
-const UserModel = require('../models/UserModel')
+const UserModel = require('../models/UserModel');
 
 const UserService = {
   isNew(telegramId, callback) {
@@ -41,3 +41,5 @@ const UserService = {
     });
   }
 };
+
+module.exports = UserService;
