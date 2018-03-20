@@ -16,17 +16,20 @@ const UserService = {
     })
   },
 
-  saveUser(telegramId, callback) {
+  saveUser(clientInfo, callback) {
     //проверка на что что пользователя нет в бд
-    this.isNew(telegramId, (err, result) => {
+    this.isNew(clientInfo.telegramId, (err, result) => {
       if (err) {
         callback(err, null);
         return;
       }
       if (result) {
+        console.log(result)
         //создаем новый дата объект на основе модели, вызываем метод save
         const newUserDto = new UserModel({
-          telegramId
+          telegramId: clientInfo.telegramId,
+          firstName: clientInfo.firstName,
+          lastName: clientInfo.lastName
         });
         newUserDto.save((err) => {
           if (err) {

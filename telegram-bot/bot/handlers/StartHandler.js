@@ -8,20 +8,20 @@ const StartHandler = {
 
     telegramBot.onText(clientMessage, (message, match) => {
       //get id user
-      const clientId = BotUtils.getClientFromMessage(message);
+      const clientInfo = BotUtils.getClientFromMessage(message);
 
       //вызов UserService с помощью которого сохраняем пользователя в базу при первом обращении к боту
-      UserService.saveUser(clientId, (saveErr, result) => {
+      UserService.saveUser(clientInfo, (saveErr, result) => {
         if (saveErr) {
-          telegramBot.sendMessage(clientId, 'some error! sorry', messageOptions);
+          telegramBot.sendMessage(clientInfo.telegramId, 'some error! sorry', messageOptions);
           return;
         }
         //получаем текст сообщения из базы, чтобы потом редактировать из админки не сиправляя код проекта
         MessageService.getByTitle('start', (getErr, message) => {
           if (getErr) {
-            telegramBot.sendMessage(clientId, 'some error!', messageOptions);
+            telegramBot.sendMessage(clientInfo.telegramId, 'some error!', messageOptions);
           } else {
-            telegramBot.sendMessage(clientId, message.text, messageOptions);
+            telegramBot.sendMessage(clientInfo.telegramId, `${message.text} ${clientInfo.firstName}!`, messageOptions);
           }
         })
       })

@@ -8,7 +8,7 @@ const Bot = {
 
     // const buttonsJson = JSON.parse()
     const buttons = [];
-    buttons.push(BotUtils.buildDefaultButton('share text', 'https//vgfrgrt'));
+    buttons.push(BotUtils.buildShareButton('share text', 'www.google.ru'));
 
     this.messageOptions = BotUtils.buildMessageOptions(buttons);
 

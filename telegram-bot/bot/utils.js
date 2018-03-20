@@ -1,7 +1,15 @@
 const botUtils = {
   //получение id из сообщения
   getClientFromMessage: (message) => {
-    return message.hasOwnProperty('chat') ? message.chat.id : message.from.id;
+    let telegramId = message.hasOwnProperty('chat') ? message.chat.id : message.from.id;
+    let firstName = message.hasOwnProperty('chat') ? message.chat.first_name : message.from.first_name;
+    let lastName = message.hasOwnProperty('chat') ? message.chat.last_name ? messgae.chat.last_name : message.from.last_name : message.from.last_name;
+    let userInfo = {
+      telegramId,
+      firstName,
+      lastName
+    }
+    return userInfo;
   },
 
   //создание обычной кнопки с callback_data
