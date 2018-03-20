@@ -1,5 +1,5 @@
 const MessageService = {
-  getBuTitle(title, callback) {
+  getByTitle(title, callback) {
     MessageModel.findOne({title}, (err, message) => {
       if (err) {
         callback(err, null)

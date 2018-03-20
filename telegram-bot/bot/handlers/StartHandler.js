@@ -1,8 +1,11 @@
+const BotUtils = require('../utils');
+const MessageService = require('../../services/MessageService');
+
 const StartHandler = {
   register(bot, messageOptions) {
-    const clientId = new RegExp('\/start');
+    const clientMessage = new RegExp('\/start');
 
-    bot.onText(clientId, (message, match) => {
+    bot.onText(clientMessage, (message, match) => {
       //get id user
       const clientId = BotUtils.getClientFromMessage(message);
 
@@ -24,3 +27,5 @@ const StartHandler = {
     })
   }
 };
+
+module.exports = StartHandler;

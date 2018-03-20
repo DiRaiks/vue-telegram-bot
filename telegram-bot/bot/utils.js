@@ -39,3 +39,5 @@ const botUtils = {
     }
   }
 };
+
+module.exports = botUtils;

@@ -4,3 +4,5 @@ const UserSchema = new Schema({
   telegramId: String
 });
 const User = mongoose.model('user', UserSchema);
+
+module.exports = User;

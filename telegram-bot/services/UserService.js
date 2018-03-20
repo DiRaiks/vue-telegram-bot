@@ -1,3 +1,5 @@
+const UserModel = require('../models/UserModel')
+
 const UserService = {
   isNew(telegramId, callback) {
     //поиск по id, проверка есть ли пользователь, если нет возврат true
