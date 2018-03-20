@@ -1,3 +1,5 @@
+const MessageModel = require('../models/MessageModel');
+
 const MessageService = {
   getByTitle(title, callback) {
     MessageModel.findOne({title}, (err, message) => {

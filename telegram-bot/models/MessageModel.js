@@ -5,3 +5,5 @@ const MessageSchema = new Schema({
   text: String
 });
 const Message = mongoose.model('message', MessageSchema);
+
+module.exports = Message;
